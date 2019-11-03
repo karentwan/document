@@ -1,11 +1,15 @@
 ## 安装Anaconda
 ## 安装显卡驱动
 * 使用驱动精灵安装显卡驱动
-* 自己去英伟达官网下载显卡驱动，然后安装（百度搜索“显卡驱动下载”）
-
+* 自己去英伟达官网下载显卡驱动
+		下载地址如下：[https://www.nvidia.cn/Download/index.aspx?lang=cn](https://www.nvidia.cn/Download/index.aspx?lang=cn)
 ## 安装cuda
-
+去官网下载cuda库，地址如下：
+[https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)
+首页可以选择操作系统以及显卡等信息，下载后就可以安装了！
 ## 配置cudnn库
+下载cudnn库的地址如下：
+[https://developer.nvidia.com/rdp/form/cudnn-download-survey](https://developer.nvidia.com/rdp/form/cudnn-download-survey)
  1. 根据安装的cuda版本，然后下载对应的cudnn库（注意：cudnn的下载需要注册）
  2. 将cudnn里面的bin、include、lib/x64下面的文件分别复制	到C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0目录下面对应的文件夹下面(cuda的安装使用的是默认安装路径)
 ## 安装tensorflow
@@ -82,7 +86,7 @@ activate mxnet
 安装mxnet(使用镜像来安装mxnet)
 
 ```
-	pip install mxnet-cu100 -i https://pypi.douban.com/simple 
+pip install mxnet-cu100 -i https://pypi.douban.com/simple 
 ```
 ## other:
 给指定环境安装依赖
@@ -93,7 +97,7 @@ conda install -n tensorflow_v2 numpy
 删除指定虚拟环境
 
 ```
-	conda remove -n tensorflow --all
+conda remove -n tensorflow --all
 ```
 anaconda常用命令
 
