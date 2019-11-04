@@ -19,6 +19,7 @@ HKEY_CURRENT_USER/Software/Install Option/
 slmgr /ipk TX9XD-98N7V-6WMQ6-BX7FG-H8Q99 
 ```
 **(上面的激活秘钥针对的是windows 家庭版 VOL)**
+
 设置激活服务器
 
 ```
