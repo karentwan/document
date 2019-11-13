@@ -3,16 +3,15 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%加载类
-\LoadClass[twoside, UTF8]{ctexart}
+\LoadClass[twoside, UTF8]{ctexart}  % twoside可以设计奇偶不一样的页眉
 
 %%%%%%%%%%%%%%%%%%%%%%%%%加载包
 \RequirePackage{geometry}        % 定制页边距
 \RequirePackage{fancyhdr}        % 设置页眉页脚
-\RequirePackage{amsmath}         % 设置可以引用数学公式
 \RequirePackage{CJK, CJKnumb}    % 引入中文支持
 \RequirePackage{titlesec }       % 设置各级标题的样式
 \RequirePackage{ifthen}
-\RequirePackage{booktabs}
+
 
 
 
@@ -48,7 +47,7 @@
 \newcommand{\rjtitle}[1]{\renewcommand{\@rjtitle}{#1}}
 \newcommand{\rjauthor}[1]{\renewcommand{\@rjauthor}{#1}}
 \newcommand{\rjinfor}[1]{\renewcommand{\@rjinfor}{#1}}
-\newcommand{\rjkeywords}[1]{\xiaowuhao {\hei关键词:}\hspace{1em}{\kai#1}\vspace{2em}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%定义一些命令
 \newcommand{\rj}{软件学报}
@@ -62,7 +61,7 @@
 		{\zihao{8}\song\@rjinfor}
 	\end{flushleft}}
 
-
+\newcommand{\rjkeywords}[1]{\xiaowuhao {\hei关键词:}\hspace{1em}{\kai#1}\vspace{2em}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%定义环境
@@ -100,12 +99,12 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%开始设置页眉和页脚
 \pagestyle{fancy}
-\fancyhf{}                               % 清除页眉页脚
+\fancyhf{}                            % 清除页眉页脚
 \fancyhead[RE]{\xiaowuhao\textit{\xiaowuhao Journal of Software} \kai软件学报}
 %\fancyhead[LO]{\kai\xiaowuhao 陈翔 等:静态软件缺陷预测方法研究}
-\fancyhead[RO]{\thepage}
-\fancyhead[LE]{\thepage}
-\renewcommand{\headrulewidth}{0pt}    %去掉下划线
+\fancyhead[RO]{\thepage}              % 设置奇数页右边页眉
+\fancyhead[LE]{\thepage}              % 设置偶数页左边页眉
+\renewcommand{\headrulewidth}{0pt}    % 去掉下划线
 
 \newcommand{\rjhead}[1]{\fancyhead[LO]{\xiaowuhao\kai #1}}
 
