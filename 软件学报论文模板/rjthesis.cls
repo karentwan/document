@@ -10,7 +10,8 @@
 \RequirePackage{fancyhdr}        % 设置页眉页脚
 \RequirePackage{CJK, CJKnumb}    % 引入中文支持
 \RequirePackage{titlesec }       % 设置各级标题的样式
-\RequirePackage{ifthen}
+\RequirePackage{ifthen}          % 用来进行判断的宏包
+\RequirePackage{enumitem}        % 设置enumerate/itemize等的item距离
 
 
 
@@ -54,6 +55,7 @@
 
 \newcommand{\rjmaketitle}{%
 	\begin{flushleft}
+	    ~\par\vspace{1em}
 		{\sihao\hei\@rjtitle}\\
 		\vspace{8pt}
 		{\xiaosihao\fs{\@rjauthor}}\\
@@ -100,12 +102,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%开始设置页眉和页脚
 \pagestyle{fancy}
 \fancyhf{}                            % 清除页眉页脚
-\fancyhead[RE]{\xiaowuhao\textit{\xiaowuhao Journal of Software} \kai软件学报}
 %\fancyhead[LO]{\kai\xiaowuhao 陈翔 等:静态软件缺陷预测方法研究}
-\fancyhead[RO]{\thepage}              % 设置奇数页右边页眉
+%\fancyhead[RO]{\thepage}   % 设置奇数页右边页眉
+\fancyhead[RE]{\xiaowuhao\textit{\xiaowuhao Journal of Software} \kai软件学报}  
 \fancyhead[LE]{\thepage}              % 设置偶数页左边页眉
 \renewcommand{\headrulewidth}{0pt}    % 去掉下划线
 
-\newcommand{\rjhead}[1]{\fancyhead[LO]{\xiaowuhao\kai #1}}
+%\newcommand{\rjhead}[1]{\fancyhead[LO]{\xiaowuhao\kai #1}}
+% 设置首页跟其他页面不一样
+\fancyhead[RO]{\ifthenelse{\value{page}=1}{\setlength{\lineskip}{5pt}\liuhao\song E-mail: jos@iscas.ac.cn\\http://www.jos.org.cn\\Tel: +86-10-62562563}{\thepage}}
+\newcommand{\rjhead}[1]{%
+	\fancyhead[LO]{\ifthenelse{\value{page}=1}{\setlength{\lineskip}{0pt}\liuhao\song 软件学报ISSN 1000-9825, CODEN RUXUEW\\Journal of Software, [doi: 10.13328/j.cnki.jos.000000]\\©中国科学院软件研究所版权所有.}{\xiaowuhao\kai #1}}}
 
 \setlength{\headheight}{13pt}
+\setlength{\linespread}{1}  % 设置文本行间距为单倍
+\setlist{nosep}
