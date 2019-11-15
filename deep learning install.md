@@ -107,3 +107,16 @@ conda create -n xxxx python=3.5   //创建python3.5的xxxx虚拟环境
 conda activate xxxx               //开启xxxx环境
 conda deactivate                  //关闭环境
 conda env list                    //显示所有的虚拟环境
+```
+
+离线创建虚拟环境
+
+```
+conda create -n yourenvname --clone root
+```
+
+离线安装包
+
+```
+conda install packagename --offline
+```

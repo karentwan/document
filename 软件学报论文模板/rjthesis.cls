@@ -116,4 +116,4 @@
 
 \setlength{\headheight}{13pt}
 \setlength{\linespread}{1}  % 设置文本行间距为单倍
-\setlist{nosep}
+\setlist{nosep}    %设置item之间的间距
