@@ -99,6 +99,12 @@ conda install -n tensorflow_v2 numpy
 ```
 conda remove -n tensorflow --all
 ```
+
+镜像安装python包
+```
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple scikit-image
+```
+
 anaconda常用命令
 
 ```
