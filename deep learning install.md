@@ -42,6 +42,13 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple opencv-python
 ```
 pip show -f tensorflow-gpu
 ```
+ 
+ pip延长超时时间
+ 
+```
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --default-timeout=100
+```
+
  安装keras
  
 
