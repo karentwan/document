@@ -7,6 +7,116 @@
 去官网下载cuda库，地址如下：
 [https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)
 首页可以选择操作系统以及显卡等信息，下载后就可以安装了！
+
+### linux安装cuda的步骤
+
+1. 安装显卡驱动
+
+卸载原有的驱动
+
+```
+sudo apt-get remove --purge nvidia*
+```
+
+禁用nouveau
+
+```
+sudo gedit /etc/modprobe.d/blacklist.conf
+```
+在文本最后添加以下内容
+
+```
+blacklist nouveau
+option nouveau modeset=0
+```
+
+保存退出，执行以下的命令使其生效
+```
+sudo update-initramfs -u
+```
+重启电脑后输入：
+```
+lsmod | grep nouveau
+```
+没有任何输出则说明禁用成功
+
+安装显卡驱动
+先去官网下载自己显卡对应的显卡驱动
+停掉linux图形界面的服务
+```
+sudo service lightdm stop
+```
+按住ctrl+alt+f1切换到纯控制台界面
+切换到下载了驱动的目录(我这里是deep learning dependence)
+```
+cd deep learning dependence
+```
+给驱动赋可执行权限
+```
+sudo chmod a+x NVIDIA-Linux-xxx.run
+```
+安装
+```
+sudo ./NVIDIA-Linux-xxx.run -no-opengl-files
+```
+(提示安装基本上都是accept, yes, 当提示你nvidia-xconfig时，如果有双显卡就选择不安装，如果单显卡就选择安装)
+安装完成后可执行以下命令检验是否安装成功
+nvidia-smi
+此时可以启用图形界面的服务了
+```
+sudo service lightdm start
+```
+然后按ctrl+alt+f7切换回图形界面
+2.安装cuda
+去nvidia官网下载cuda后，进入下载的目录，然后给文件赋予可执行权限
+```
+sudo chmod a+x cuda_xxxx.run
+```
+安装
+```
+sudo ./cuda_xxx.run --no-opengl-libs
+```
+安装步骤
+```
+Do you accept the previously read EULA?
+accept/decline/quit: accept
+ 
+Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 361.62?
+(y)es/(n)o/(q)uit: n
+ 
+Install the CUDA 8.0 Toolkit?
+(y)es/(n)o/(q)uit: y
+ 
+Enter Toolkit Location
+[ default is /usr/local/cuda-8.0 ]:(直接回车)
+ 
+Do you want to install a symbolic link at /usr/local/cuda?
+(y)es/(n)o/(q)uit: y
+ 
+Install the CUDA 8.0 Samples?
+(y)es/(n)o/(q)uit: y
+ 
+Enter CUDA Samples Location
+[ default is /home/tang]:(直接回车)
+```
+安装完成后配置环境变量
+```
+export PATH=/usr/local/cuda-10.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
+使配置生效
+```
+source ~/.bashrc
+```
+
+3.将cudnn复制到对应的文件夹内
+下载好cuda对应的cudnn版本后解压该文件
+```
+tar -xvf cudnn-10.0-xxx.tgz
+sudo cp cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+```
 ## 配置cudnn库
 下载cudnn库的地址如下：
 [https://developer.nvidia.com/rdp/form/cudnn-download-survey](https://developer.nvidia.com/rdp/form/cudnn-download-survey)
@@ -106,6 +216,40 @@ conda install -n tensorflow_v2 numpy
 ```
 conda remove -n tensorflow --all
 ```
+
+conda设置默认安装镜像
+在anaconda控制台下面运行如下的命令：
+
+```
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --set show_channel_urls yes
+```
+
+或者修改用户目录下面的 .condarc文件：
+```
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+custom_channels:
+  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+```
+
+pip设置默认清华镜像(linux操作系统下面)
+
+```
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+```
+	
 
 镜像安装python包
 ```

@@ -34,3 +34,25 @@ sudo dkms install -m nvidia -v 430.50
 
 如果是因为linux的内核版本更新了后，导致显卡驱动和内核版本不匹配可以在系统开机的时候
 选择老版本的内核即可
+
+## 更换老版本内核的办法
+
+首先查看有哪些内核
+
+```
+grep menuentry /boot/grub/grub.cfg
+```
+
+修改linux默认启动内核
+
+```
+sudo vim /etc/default/grub
+```
+
+将配置文件里面的第一行内容`GRUB_DEFUALT`后面的数字修改, 想要第几个内核就修改为几(默认从0开始)
+修改完成后更新内核
+
+```
+sudo update-grub
+```
+

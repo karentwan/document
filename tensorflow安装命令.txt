@@ -93,6 +93,8 @@
 	pip install -i https://pypi.tuna.tsinghua.edu.cn/simple keras
 	# numpy降级
 	pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U numpy==1.16.3
+	
+	注意：在anaconda虚拟环境中使用pip安装的库的默认路径为/home/tang/anaconda3/envs/tensorflow/lib/python3.6/site-packages
 
 4.安装pytorch
 	创建pytorch虚拟环境
