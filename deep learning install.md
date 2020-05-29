@@ -41,12 +41,15 @@ lsmod | grep nouveau
 没有任何输出则说明禁用成功
 
 安装显卡驱动
+
 先去官网下载自己显卡对应的显卡驱动
+
 停掉linux图形界面的服务
 ```
 sudo service lightdm stop
 ```
 按住ctrl+alt+f1切换到纯控制台界面
+
 切换到下载了驱动的目录(我这里是deep learning dependence)
 ```
 cd deep learning dependence
@@ -60,14 +63,17 @@ sudo chmod a+x NVIDIA-Linux-xxx.run
 sudo ./NVIDIA-Linux-xxx.run -no-opengl-files
 ```
 (提示安装基本上都是accept, yes, 当提示你nvidia-xconfig时，如果有双显卡就选择不安装，如果单显卡就选择安装)
-安装完成后可执行以下命令检验是否安装成功
-nvidia-smi
+
+安装完成后可执行`nvidia-smi`命令检验是否安装成功,如果输出了显卡的使用信息则说明安装成功
+
 此时可以启用图形界面的服务了
 ```
 sudo service lightdm start
 ```
 然后按ctrl+alt+f7切换回图形界面
+
 2.安装cuda
+
 去nvidia官网下载cuda后，进入下载的目录，然后给文件赋予可执行权限
 ```
 sudo chmod a+x cuda_xxxx.run
@@ -109,7 +115,21 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 source ~/.bashrc
 ```
 
-3.将cudnn复制到对应的文件夹内
+
+## 配置cudnn库
+
+### windows版本的配置
+
+下载cudnn库的地址如下：
+[https://developer.nvidia.com/rdp/form/cudnn-download-survey](https://developer.nvidia.com/rdp/form/cudnn-download-survey)
+ 1. 根据安装的cuda版本，然后下载对应的cudnn库（注意：cudnn的下载需要注册）
+ 2. 将cudnn里面的bin、include、lib/x64下面的文件分别复制	到C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0目录下面对应的文件夹下面(cuda的安装使用的是默认安装路径)
+ 
+ 
+### Linux系统的配置
+
+将cudnn复制到对应的文件夹内
+
 下载好cuda对应的cudnn版本后解压该文件
 ```
 tar -xvf cudnn-10.0-xxx.tgz
@@ -117,13 +137,10 @@ sudo cp cuda/include/cudnn.h /usr/local/cuda/include
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
 sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 ```
-## 配置cudnn库
-下载cudnn库的地址如下：
-[https://developer.nvidia.com/rdp/form/cudnn-download-survey](https://developer.nvidia.com/rdp/form/cudnn-download-survey)
- 1. 根据安装的cuda版本，然后下载对应的cudnn库（注意：cudnn的下载需要注册）
- 2. 将cudnn里面的bin、include、lib/x64下面的文件分别复制	到C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0目录下面对应的文件夹下面(cuda的安装使用的是默认安装路径)
 ## 安装tensorflow
+
 先在Anaconda里面创建一个专门用于tensorflow的虚拟环境：
+
 打开Anaconda Prompt，输入一下命令：
 
 ```
@@ -135,6 +152,7 @@ conda create -n tensorflow python=3.6
 activate tensorflow       
 ```
 使用pip安装tensorflow，使用清华镜像源
+
 （当使用的是cuda10.0和cudnn7.6.1.34时，应该安装tensorflow-gpu=1.13.1版本）
 
 ```
