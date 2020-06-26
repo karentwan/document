@@ -294,3 +294,74 @@ conda create -n yourenvname --clone root
 ```
 conda install packagename --offline
 ```
+
+## 从源码编译torch7
+
+### 实验环境
+
+|软件|版本|
+|-|-|
+|系统|ubuntu 16.04|
+|cuda|v9.0|
+
+### torch7安装过程
+
+从github上下载torch7的源码（下载的时候需要加上`--recursive`把子模块也下载下来，如果速度很慢可以从码云上下载）
+
+```
+git clone https://github.com/torch/distro.git ~/torch --recursive
+```
+or
+```
+git clone https://gitee.com/karentwan/distro.git ~/torch --recursive
+```
+
+假设源码下载到~/torch目录里面，依次输入下面命令编译torch7
+
+```
+cd ~/torch 
+bash install-deps
+TORCH_LUA_VERSION=LUA52 bash ./install.sh
+```
+
+### 可能会遇到的问题
+
+- 在linux里面执行编译脚本时报错：`$'\r': 未找到命令`
+
+	* 问题原因：在dos/window下按一次回车键实际上输入的是“回车（CR)”和“换行（LF）”, 而Linux/unix下按一次回车键只输入“换行（LF）”，所以文件在每行都会多了一个CR，所以Linux下运行时就会报错找不到命令, **主要就是上面脚本里面包含windows系统里面的换行符**
+
+	* 解决方案：使用dos2unix命令转换
+
+ubuntu安装dos2unix
+
+```
+sudo apt-get install dos2unix
+```
+
+使用**dos2unix**转换格式
+
+```
+dos2unix install-deps
+```
+
+- 在执行 bash install-deps命令时报错：`error: RPC failed; curl 56 GnuTLS recv error (-54): Error in the pull`
+
+	* 问题原因：git默认的缓存大小不足
+
+	* 解决方案：增加git默认的缓存容量
+
+```
+git config --global http.postBuffer 2000000000
+```
+
+- 执行 `TORCH_LUA_VERSION=LUA52 bash ./install.sh` 时报错：`error: more than one operator "==" matches these operands:`
+
+	* 问题原因：cuda和torch的头文件都提供了相同的重载运算符，编译器不知道用哪一个
+
+	* 解决方案：输入下面shell命令禁止使用cuda的头文件编译torch即可：
+
+```
+export TORCH_NVCC_FLAGS="-D__CUDA_NO_HALF_OPERATORS__"
+```
+
+然后接着输入：`TORCH_LUA_VERSION=LUA52 bash ./install.sh`开始编译
