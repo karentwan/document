@@ -87,7 +87,7 @@ rtmp {
     server {
         listen 8007;
         chunk_size 4096;
-        application live {
+        application live {  # live是直播的前缀地址, 可以修改
             live on;
         }
     }
@@ -101,7 +101,7 @@ rtmp {
 	server {
 		listen 8007;
 		chunk_size 4096;
-		application vod {
+		application vod {  # vod是点播的前缀地址, 可以修改
 			play /opt/video/vod;  # 用来进行点播的文件存放位置
 		}
 	}
@@ -138,12 +138,22 @@ ffmpeg -re -i "G:\Movies\丈夫得了抑郁症 ツレがうつになりまして
 
 推流结束后，就可以使用任何一款vlc播放器来进行拉流，这样就可以观看直播了，这里一potplay播放器为例
 
-![image-20220212162935257](imgs/image-20220212162935257.png)
+![image-20220212162935257](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220212162935257.png)
 
 在如下播放器上面输入直播地址就可以播放视频
 
-![image-20220212163030463](imgs/image-20220212163030463.png)
+![image-20220212163030463](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220212163030463.png)
 
+#### 其他
 
+##### 给直播视频添加文字水印
 
+首先要将字体拷贝到ffmpeg程序所在目录下面，这里进入`C:\Windows\Fonts`目录，然后把里面的微软雅黑拷贝到ffmpeg所在目录，接着使用带水印的命令来推流，命令如下：
 
+```shell
+ffmpeg -re -i "G:\Movies\丈夫得了抑郁症 ツレがうつになりまして。 2011.mp4" -vf "drawtext=fontfile=msyh.ttc: text='丈夫得了抑郁症':x=10:y=10:fontsize=24:fontcolor=white:shadowy=2" -vcodec libx264 -acodec aac -f flv rtmp://192.168.147.131:8007/live/video
+```
+
+其中-vf参数所带的就是直播水印，效果如下（看视频左上角）：
+
+![image-20220212190119337](imgs/image-20220212190119337.png)
